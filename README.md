@@ -38,3 +38,4 @@ The chat platform supports the following configuration options
 | -------------------- | ------ | ------------------------------------------------------------ | ------------- |
 | `xatkit.platforms.abstract.ChatPlatform` | String | The *path* attribute of the concrete *ChatPlatform* implementation to use to deploy the bot | **Mandatory** |
 
+**Note**: additional configuration options may be required based on the concrete platform used to deploy the bot. See the [related platform documentation](#known-concrete-platforms) for more information.
