@@ -19,7 +19,7 @@ The chat platform defines the following providers:
 
 | Provider                   | Type  | Context Parameters | Description                                                  |
 | -------------------------- | ----- | ------------------ | ------------------------------------------------------------ |
-| ChatProvider | Intent | - `chat.channel`: the identifier of the channel that sent the message<br/> - `chat.username`: the name of the user that sent the message<br/> - `chat.rawMessage`: the raw message sent by the user (before NLP processing) | The chat intent provider receives messages from a communication channel and translate them into Xatkit-compatible intents |
+| ChatProvider | Intent | - `chat.channel`: the identifier of the channel that sent the message<br/> - `chat.username`: the name of the user that sent the message<br/> - `chat.rawMessage`: the raw message sent by the user (before NLP processing) | Receive messages from a communication channel and translate them into Xatkit-compatible intents |
 
 **Note**: the context parameters defined in the *ChatProvider* are also defined in the *ChatProvider* implementations of concrete platforms extending *ChatPlatform*.
 
