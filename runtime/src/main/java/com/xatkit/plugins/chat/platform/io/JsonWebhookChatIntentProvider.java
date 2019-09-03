@@ -1,6 +1,6 @@
 package com.xatkit.plugins.chat.platform.io;
 
-import com.xatkit.core.platform.io.RuntimeEventProvider;
+import com.xatkit.core.platform.io.JsonWebhookEventProvider;
 import com.xatkit.core.session.XatkitSession;
 import com.xatkit.intent.EventInstance;
 import com.xatkit.plugins.chat.ChatUtils;
@@ -8,25 +8,25 @@ import com.xatkit.plugins.chat.platform.ChatPlatform;
 import org.apache.commons.configuration2.Configuration;
 
 /**
- * An abstract chat intent provider.
+ * An abstract chat intent provider that extracts intents from received Json payloads.
  * <p>
- * This class is designed to be extended by concrete providers relying on third-party libraries to receive chat
- * events (e.g. a dedicated library connecting to Slack). To receive chat events from Json webhooks check
- * {@link JsonWebhookChatIntentProvider}.
+ * This class is designed to be extended by concrete providers extracting user intents from received Json payloads.
+ * The class provides utility methods to navigate the Json payload and the received HTTP headers. To receive chat
+ * from third-party libraries check and {@link ChatIntentProvider}.
  *
  * @param <T> the concrete {@link ChatPlatform} that contains this provider
- *
- * @see JsonWebhookChatIntentProvider
+ * @see ChatIntentProvider
  */
-public abstract class ChatIntentProvider<T extends ChatPlatform> extends RuntimeEventProvider<T> {
+public abstract class JsonWebhookChatIntentProvider<T extends ChatPlatform> extends JsonWebhookEventProvider<T> {
 
     /**
-     * Constructs a new {@link ChatIntentProvider} with the provided {@code runtimePlatform} and {@code configuration}.
+     * Constructs a new {@link JsonWebhookChatIntentProvider} with the provided {@code runtimePlatform} and {@code
+     * configuration}.
      *
      * @param runtimePlatform the {@link ChatPlatform} containing this provider
      * @param configuration   the {@link Configuration} used to initialize this provider
      */
-    public ChatIntentProvider(T runtimePlatform, Configuration configuration) {
+    public JsonWebhookChatIntentProvider(T runtimePlatform, Configuration configuration) {
         super(runtimePlatform, configuration);
     }
 
