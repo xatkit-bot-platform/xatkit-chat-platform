@@ -1,6 +1,7 @@
 package com.xatkit.plugins.chat.platform.io;
 
-import com.xatkit.core.platform.io.JsonWebhookEventProvider;
+import com.xatkit.core.platform.io.WebhookEventProvider;
+import com.xatkit.core.server.RestHandler;
 import com.xatkit.core.session.XatkitSession;
 import com.xatkit.intent.EventInstance;
 import com.xatkit.plugins.chat.ChatUtils;
@@ -17,16 +18,17 @@ import org.apache.commons.configuration2.Configuration;
  * @param <T> the concrete {@link ChatPlatform} that contains this provider
  * @see ChatIntentProvider
  */
-public abstract class JsonWebhookChatIntentProvider<T extends ChatPlatform> extends JsonWebhookEventProvider<T> {
+public abstract class WebhookChatIntentProvider<T extends ChatPlatform, H extends RestHandler> extends WebhookEventProvider<T,
+        H> {
 
     /**
-     * Constructs a new {@link JsonWebhookChatIntentProvider} with the provided {@code runtimePlatform} and {@code
+     * Constructs a new {@link WebhookChatIntentProvider} with the provided {@code runtimePlatform} and {@code
      * configuration}.
      *
      * @param runtimePlatform the {@link ChatPlatform} containing this provider
      * @param configuration   the {@link Configuration} used to initialize this provider
      */
-    public JsonWebhookChatIntentProvider(T runtimePlatform, Configuration configuration) {
+    public WebhookChatIntentProvider(T runtimePlatform, Configuration configuration) {
         super(runtimePlatform, configuration);
     }
 

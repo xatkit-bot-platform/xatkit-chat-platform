@@ -12,11 +12,11 @@ import org.apache.commons.configuration2.Configuration;
  * <p>
  * This class is designed to be extended by concrete providers relying on third-party libraries to receive chat
  * events (e.g. a dedicated library connecting to Slack). To receive chat events from Json webhooks check
- * {@link JsonWebhookChatIntentProvider}.
+ * {@link WebhookChatIntentProvider}.
  *
  * @param <T> the concrete {@link ChatPlatform} that contains this provider
  *
- * @see JsonWebhookChatIntentProvider
+ * @see WebhookChatIntentProvider
  */
 public abstract class ChatIntentProvider<T extends ChatPlatform> extends RuntimeEventProvider<T> {
 
