@@ -8,6 +8,8 @@ The changelog format is based on [Keep a Changelog](https://keepachangelog.com/e
 
 ## Unreleased
 
+## [2.1.0] - 2019-10-10
+
 ### Added
 
 - Class `com.xatkit.plugins.chat.platform.io.WebhookChatIntentProvider`: an abstract class that can be extended by concrete chat platforms to receive user inputs through REST endpoints.
