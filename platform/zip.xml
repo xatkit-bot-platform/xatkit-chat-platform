@@ -9,9 +9,6 @@
     </formats>
     <files>
         <file>
-            <source>ChatPlatform.xmi</source>
-        </file>
-        <file>
             <source>ChatPlatform.platform</source>
         </file>
     </files>

@@ -11,6 +11,6 @@ providers {
 }
 
 actions {
-	PostMessage(message, channel)
-	Reply(message)
+	PostMessage(message : String, channel : String)
+	Reply(message : String)
 }
