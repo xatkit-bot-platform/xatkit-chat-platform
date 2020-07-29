@@ -3,6 +3,7 @@ package com.xatkit.plugins.chat.platform.action;
 import com.xatkit.core.platform.Formatter;
 import com.xatkit.core.platform.action.RuntimeAction;
 import com.xatkit.core.session.XatkitSession;
+import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.chat.platform.ChatPlatform;
 
 import javax.annotation.Nullable;
@@ -45,13 +46,13 @@ public abstract class FormatList<T extends ChatPlatform> extends RuntimeAction<T
      * Constructs a {@link FormatList} with the provided {@code runtimePlatform}, {@code session}, and {@code list}.
      *
      * @param runtimePlatform the concrete {@link ChatPlatform} containing this action
-     * @param session         the {@link XatkitSession} associated to this action
+     * @param context         the {@link StateContext} associated to this action
      * @param list            the {@link List} to format
      * @throws NullPointerException if the provided {@code runtimePlatform}, {@code session}, or {@code list} is
      *                              {@code null}
      */
-    public FormatList(T runtimePlatform, XatkitSession session, List<?> list, @Nullable String formatterName) {
-        super(runtimePlatform, session);
+    public FormatList(T runtimePlatform, StateContext context, List<?> list, @Nullable String formatterName) {
+        super(runtimePlatform, context);
         checkNotNull(list, "Cannot construct a %s action from the provided %s %s", this.getClass().getSimpleName(),
                 List.class.getSimpleName(), list);
         this.list = list;
@@ -74,7 +75,7 @@ public abstract class FormatList<T extends ChatPlatform> extends RuntimeAction<T
     @Override
     protected final Object compute() throws Exception {
         Object formattedList = this.formatList();
-        this.session.store(LAST_FORMATTED_LIST, list);
+        this.context.getSession().put(LAST_FORMATTED_LIST, list);
         return formattedList;
     }
 

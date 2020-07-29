@@ -6,7 +6,6 @@ import com.xatkit.core.session.XatkitSession;
 import com.xatkit.intent.EventInstance;
 import com.xatkit.plugins.chat.ChatUtils;
 import com.xatkit.plugins.chat.platform.ChatPlatform;
-import org.apache.commons.configuration2.Configuration;
 
 /**
  * An abstract chat intent provider that extracts intents from received Json payloads.
@@ -22,14 +21,12 @@ public abstract class WebhookChatIntentProvider<T extends ChatPlatform, H extend
         H> {
 
     /**
-     * Constructs a new {@link WebhookChatIntentProvider} with the provided {@code runtimePlatform} and {@code
-     * configuration}.
+     * Constructs a {@link WebhookChatIntentProvider} and binds it to the provided {@code chatPlatform}.
      *
-     * @param runtimePlatform the {@link ChatPlatform} containing this provider
-     * @param configuration   the {@link Configuration} used to initialize this provider
+     * @param chatPlatform the {@link ChatPlatform} managing this provider
      */
-    public WebhookChatIntentProvider(T runtimePlatform, Configuration configuration) {
-        super(runtimePlatform, configuration);
+    public WebhookChatIntentProvider(T chatPlatform) {
+        super(chatPlatform);
     }
 
     /**
