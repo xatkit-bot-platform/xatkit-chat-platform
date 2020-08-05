@@ -1,7 +1,7 @@
 package com.xatkit.plugins.chat.platform.io;
 
 import com.xatkit.core.platform.io.RuntimeEventProvider;
-import com.xatkit.core.session.XatkitSession;
+import com.xatkit.execution.StateContext;
 import com.xatkit.intent.EventInstance;
 import com.xatkit.plugins.chat.ChatUtils;
 import com.xatkit.plugins.chat.platform.ChatPlatform;
@@ -35,11 +35,11 @@ public abstract class ChatIntentProvider<T extends ChatPlatform> extends Runtime
      * of variables and can be used transparently in execution models.
      */
     @Override
-    public void sendEventInstance(EventInstance eventInstance, XatkitSession session) {
+    public void sendEventInstance(EventInstance eventInstance, StateContext context) {
         /*
          * TODO should we set this override as final?
          */
-        ChatProviderUtils.checkSession(session);
-        super.sendEventInstance(eventInstance, session);
+        ChatProviderUtils.checkSession(context);
+        super.sendEventInstance(eventInstance, context);
     }
 }
