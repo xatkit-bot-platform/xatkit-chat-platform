@@ -1,11 +1,10 @@
 package com.xatkit.plugins.chat.platform.io;
 
 import com.xatkit.core.platform.io.RuntimeEventProvider;
-import com.xatkit.core.session.XatkitSession;
+import com.xatkit.execution.StateContext;
 import com.xatkit.intent.EventInstance;
 import com.xatkit.plugins.chat.ChatUtils;
 import com.xatkit.plugins.chat.platform.ChatPlatform;
-import org.apache.commons.configuration2.Configuration;
 
 /**
  * An abstract chat intent provider.
@@ -15,19 +14,17 @@ import org.apache.commons.configuration2.Configuration;
  * {@link WebhookChatIntentProvider}.
  *
  * @param <T> the concrete {@link ChatPlatform} that contains this provider
- *
  * @see WebhookChatIntentProvider
  */
 public abstract class ChatIntentProvider<T extends ChatPlatform> extends RuntimeEventProvider<T> {
 
     /**
-     * Constructs a new {@link ChatIntentProvider} with the provided {@code runtimePlatform} and {@code configuration}.
+     * Constructs a {@link ChatIntentProvider} and binds it to the provided {@code chatPlatform}.
      *
-     * @param runtimePlatform the {@link ChatPlatform} containing this provider
-     * @param configuration   the {@link Configuration} used to initialize this provider
+     * @param chatPlatform the {@link ChatPlatform} managing this provider
      */
-    public ChatIntentProvider(T runtimePlatform, Configuration configuration) {
-        super(runtimePlatform, configuration);
+    public ChatIntentProvider(T chatPlatform) {
+        super(chatPlatform);
     }
 
     /**
@@ -38,11 +35,11 @@ public abstract class ChatIntentProvider<T extends ChatPlatform> extends Runtime
      * of variables and can be used transparently in execution models.
      */
     @Override
-    public void sendEventInstance(EventInstance eventInstance, XatkitSession session) {
+    public void sendEventInstance(EventInstance eventInstance, StateContext context) {
         /*
          * TODO should we set this override as final?
          */
-        ChatProviderUtils.checkSession(session);
-        super.sendEventInstance(eventInstance, session);
+        ChatProviderUtils.checkSession(context);
+        super.sendEventInstance(eventInstance, context);
     }
 }

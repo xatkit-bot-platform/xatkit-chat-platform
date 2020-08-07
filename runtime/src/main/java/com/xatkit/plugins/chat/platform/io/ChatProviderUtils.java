@@ -1,6 +1,6 @@
 package com.xatkit.plugins.chat.platform.io;
 
-import com.xatkit.core.session.XatkitSession;
+import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.chat.ChatUtils;
 
 import java.util.Map;
@@ -14,18 +14,17 @@ import static java.util.Objects.nonNull;
 public class ChatProviderUtils {
 
     /**
-     * Checks that the context variables defined in {@link ChatUtils} have been set in the given {@code session}.
+     * Checks that the context variables defined in {@link ChatUtils} have been set in the given {@code context}.
      * <p>
      * This method is called when sending the event to the {@link com.xatkit.core.XatkitCore} component, and ensures
      * that each concrete implementation of the {@link com.xatkit.plugins.chat.platform.ChatPlatform} sets the same
      * context variables.
      *
-     * @param session the {@link XatkitSession} to check
+     * @param context the {@link StateContext} to check
      * @throws IllegalStateException if a context or context variable has not been set in the session
      */
-    protected static void checkSession(XatkitSession session) {
-        Map<String, Object> contextVariables =
-                session.getRuntimeContexts().getContextVariables(ChatUtils.CHAT_CONTEXT_KEY);
+    protected static void checkSession(StateContext context) {
+        Map<String, Object> contextVariables = context.getNlpContext().get(ChatUtils.CHAT_CONTEXT_KEY);
         checkState(nonNull(contextVariables), "The context %s has not been defined by the intent provider",
                 ChatUtils.CHAT_CONTEXT_KEY);
         checkState(nonNull(contextVariables.get(ChatUtils.CHAT_CHANNEL_CONTEXT_KEY)), "The context variable %s" +
