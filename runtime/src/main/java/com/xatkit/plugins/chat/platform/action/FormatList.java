@@ -1,16 +1,13 @@
 package com.xatkit.plugins.chat.platform.action;
 
-import com.xatkit.core.platform.Formatter;
 import com.xatkit.core.platform.action.RuntimeAction;
 import com.xatkit.core.session.XatkitSession;
 import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.chat.platform.ChatPlatform;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 import static fr.inria.atlanmod.commons.Preconditions.checkNotNull;
-import static java.util.Objects.isNull;
 
 /**
  * Formats the provided {@link List} and stores it in the user's {@link XatkitSession}.
@@ -40,8 +37,6 @@ public abstract class FormatList<T extends ChatPlatform> extends RuntimeAction<T
      */
     protected List<?> list;
 
-    protected Formatter formatter;
-
     /**
      * Constructs a {@link FormatList} with the provided {@code runtimePlatform}, {@code session}, and {@code list}.
      *
@@ -51,16 +46,11 @@ public abstract class FormatList<T extends ChatPlatform> extends RuntimeAction<T
      * @throws NullPointerException if the provided {@code runtimePlatform}, {@code session}, or {@code list} is
      *                              {@code null}
      */
-    public FormatList(T runtimePlatform, StateContext context, List<?> list, @Nullable String formatterName) {
+    public FormatList(T runtimePlatform, StateContext context, List<?> list) {
         super(runtimePlatform, context);
         checkNotNull(list, "Cannot construct a %s action from the provided %s %s", this.getClass().getSimpleName(),
                 List.class.getSimpleName(), list);
         this.list = list;
-        if(isNull(formatterName)) {
-            this.formatter = this.runtimePlatform.getXatkitCore().getFormatter("Default");
-        } else {
-            this.formatter = this.runtimePlatform.getXatkitCore().getFormatter(formatterName);
-        }
     }
 
     /**
