@@ -1,7 +1,6 @@
 package com.xatkit.plugins.chat.platform.action;
 
 import com.xatkit.core.platform.action.RuntimeAction;
-import com.xatkit.core.session.XatkitSession;
 import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.chat.platform.ChatPlatform;
 
@@ -10,7 +9,7 @@ import java.util.List;
 import static fr.inria.atlanmod.commons.Preconditions.checkNotNull;
 
 /**
- * Formats the provided {@link List} and stores it in the user's {@link XatkitSession}.
+ * Formats the provided {@link List} and stores it in the user's {@link StateContext}.
  * <p>
  * The concrete formatting of the {@link List} is defined in the {@link #formatList()} method, that must be
  * implemented by concrete subclasses.
@@ -25,7 +24,7 @@ import static fr.inria.atlanmod.commons.Preconditions.checkNotNull;
 public abstract class FormatList<T extends ChatPlatform> extends RuntimeAction<T> {
 
     /**
-     * The {@link XatkitSession}'s key used to stored the {@link List}.
+     * The session's key used to stored the {@link List}.
      * <p>
      * This key can be used by custom action to retrieve the {@link List} and access the element selected by the user
      * using, for example, an {@code integer}, {@code ordinal}, or {@code cardinal} entity type.
@@ -54,7 +53,7 @@ public abstract class FormatList<T extends ChatPlatform> extends RuntimeAction<T
     }
 
     /**
-     * Formats the provided {@link List} and stores it in the {@link XatkitSession}.
+     * Formats the provided {@link List} and stores it in the {@link StateContext}.
      * <p>
      * The stored {@link List} can be retrieved using {@code session.get(LAST_FORMATTED_LIST}.
      *

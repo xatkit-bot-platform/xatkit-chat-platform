@@ -41,7 +41,7 @@ public abstract class WebhookChatIntentProvider<T extends ChatPlatform, H extend
         /*
          * TODO should we set this override as final?
          */
-        ChatProviderUtils.checkSession(context);
+        ChatProviderUtils.checkEventInstance(eventInstance);
         super.sendEventInstance(eventInstance, context);
     }
 }

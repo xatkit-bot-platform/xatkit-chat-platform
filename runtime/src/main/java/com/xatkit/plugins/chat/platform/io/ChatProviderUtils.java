@@ -1,6 +1,7 @@
 package com.xatkit.plugins.chat.platform.io;
 
 import com.xatkit.execution.StateContext;
+import com.xatkit.intent.EventInstance;
 import com.xatkit.plugins.chat.ChatUtils;
 
 import java.util.Map;
@@ -14,27 +15,27 @@ import static java.util.Objects.nonNull;
 public class ChatProviderUtils {
 
     /**
-     * Checks that the context variables defined in {@link ChatUtils} have been set in the given {@code context}.
+     * Checks that the entries defined in {@link ChatUtils} are correctly set in the {@code event}'s platform data.
      * <p>
-     * This method is called when sending the event to the {@link com.xatkit.core.XatkitCore} component, and ensures
+     * This method is called when sending the event to the {@link com.xatkit.core.XatkitBot} component, and ensures
      * that each concrete implementation of the {@link com.xatkit.plugins.chat.platform.ChatPlatform} sets the same
-     * context variables.
+     * context variable.
      *
-     * @param context the {@link StateContext} to check
-     * @throws IllegalStateException if a context or context variable has not been set in the session
+     * @param event the {@link EventInstance} to check
+     * @throws IllegalStateException if an entry is missing in the provided {@code event}'s platform data
+     * @see EventInstance#getPlatformData()
      */
-    protected static void checkSession(StateContext context) {
-        Map<String, Object> contextVariables = context.getNlpContext().get(ChatUtils.CHAT_CONTEXT_KEY);
-        checkState(nonNull(contextVariables), "The context %s has not been defined by the intent provider",
-                ChatUtils.CHAT_CONTEXT_KEY);
-        checkState(nonNull(contextVariables.get(ChatUtils.CHAT_CHANNEL_CONTEXT_KEY)), "The context variable %s" +
-                        ".%s has not been defined by the intent provider", ChatUtils.CHAT_CONTEXT_KEY,
-                ChatUtils.CHAT_CHANNEL_CONTEXT_KEY);
-        checkState(nonNull(contextVariables.get(ChatUtils.CHAT_USERNAME_CONTEXT_KEY)), "The context variable %s" +
-                        ".%s has not been defined by the intent provider",
-                ChatUtils.CHAT_CONTEXT_KEY, ChatUtils.CHAT_USERNAME_CONTEXT_KEY);
-        checkState(nonNull(contextVariables.get(ChatUtils.CHAT_RAW_MESSAGE_CONTEXT_KEY)), "The context variable %s" +
-                        ".%s has not been defined by the intent provider", ChatUtils.CHAT_CONTEXT_KEY,
-                ChatUtils.CHAT_RAW_MESSAGE_CONTEXT_KEY);
+    protected static void checkEventInstance(EventInstance event) {
+        Map<String, Object> platformData = event.getPlatformData();
+        checkState(platformData.containsKey(ChatUtils.CHAT_CHANNEL_CONTEXT_KEY), "Cannot send the %s %s: the platform" +
+                        " data does not contain an entry for %s", event.getClass().getSimpleName(),
+                event.getDefinition().getName(), ChatUtils.CHAT_CHANNEL_CONTEXT_KEY);
+        checkState(platformData.containsKey(ChatUtils.CHAT_USERNAME_CONTEXT_KEY), "Cannot send the %s %s: the " +
+                        "platform data does not contain an entry for %s", event.getClass().getSimpleName(),
+                event.getDefinition().getName(), ChatUtils.CHAT_USERNAME_CONTEXT_KEY);
+        checkState(platformData.containsKey(ChatUtils.CHAT_RAW_MESSAGE_CONTEXT_KEY), "Cannot send the %s %s: the " +
+                        "platform data does not contain an entry for %s", event.getClass().getSimpleName(),
+                event.getDefinition().getName(), ChatUtils.CHAT_RAW_MESSAGE_CONTEXT_KEY);
     }
+
 }

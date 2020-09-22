@@ -39,7 +39,7 @@ public abstract class ChatIntentProvider<T extends ChatPlatform> extends Runtime
         /*
          * TODO should we set this override as final?
          */
-        ChatProviderUtils.checkSession(context);
+        ChatProviderUtils.checkEventInstance(eventInstance);
         super.sendEventInstance(eventInstance, context);
     }
 }
