@@ -1,31 +1,29 @@
 package com.xatkit.plugins.chat.platform.io;
 
-import com.xatkit.core.platform.io.WebhookEventProvider;
-import com.xatkit.core.server.RestHandler;
+import com.xatkit.core.platform.io.RuntimeEventProvider;
 import com.xatkit.execution.StateContext;
 import com.xatkit.intent.EventInstance;
 import com.xatkit.plugins.chat.ChatUtils;
 import com.xatkit.plugins.chat.platform.ChatPlatform;
 
 /**
- * An abstract chat intent provider that extracts intents from received Json payloads.
+ * An abstract chat intent provider.
  * <p>
- * This class is designed to be extended by concrete providers extracting user intents from received Json payloads.
- * The class provides utility methods to navigate the Json payload and the received HTTP headers. To receive chat
- * from third-party libraries check and {@link ChatIntentProvider}.
+ * This class is designed to be extended by concrete providers relying on third-party libraries to receive chat
+ * events (e.g. a dedicated library connecting to Slack). To receive chat events from Json webhooks check
+ * {@link WebhookChatIntentProvider}.
  *
  * @param <T> the concrete {@link ChatPlatform} that contains this provider
- * @see ChatIntentProvider
+ * @see WebhookChatIntentProvider
  */
-public abstract class WebhookChatIntentProvider<T extends ChatPlatform, H extends RestHandler> extends WebhookEventProvider<T,
-        H> {
+public abstract class ChatIntentProvider<T extends ChatPlatform> extends RuntimeEventProvider<T> {
 
     /**
-     * Constructs a {@link WebhookChatIntentProvider} and binds it to the provided {@code chatPlatform}.
+     * Constructs a {@link ChatIntentProvider} and binds it to the provided {@code chatPlatform}.
      *
      * @param chatPlatform the {@link ChatPlatform} managing this provider
      */
-    public WebhookChatIntentProvider(T chatPlatform) {
+    public ChatIntentProvider(T chatPlatform) {
         super(chatPlatform);
     }
 
@@ -41,7 +39,7 @@ public abstract class WebhookChatIntentProvider<T extends ChatPlatform, H extend
         /*
          * TODO should we set this override as final?
          */
-        ChatProviderUtils.checkSession(context);
+        ChatProviderUtils.checkEventInstance(eventInstance);
         super.sendEventInstance(eventInstance, context);
     }
 }

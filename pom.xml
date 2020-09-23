@@ -4,75 +4,55 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.xatkit</groupId>
+    <parent>
+        <groupId>com.xatkit</groupId>
+        <artifactId>xatkit</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
     <artifactId>chat-platform</artifactId>
     <version>3.0.1-SNAPSHOT</version>
 
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
-        <maven-help-plugin.version>3.2.0</maven-help-plugin.version>
-    </properties>
+    <dependencies>
 
-    <modules>
-        <module>runtime</module>
-    </modules>
+        <!-- Xatkit Internal -->
 
-    <build>
+        <dependency>
+            <groupId>com.xatkit</groupId>
+            <artifactId>core</artifactId>
+            <version>5.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
 
-        <pluginManagement>
+        <dependency>
+            <groupId>com.xatkit</groupId>
+            <artifactId>core</artifactId>
+            <version>5.0.0-SNAPSHOT</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
 
-            <plugins>
+        <!-- Tests -->
 
-                <!-- display active profile in compile phase -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-help-plugin</artifactId>
-                    <version>${maven-help-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>show-profiles</id>
-                            <phase>compile</phase>
-                            <goals>
-                                <goal>active-profiles</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${maven-assembly-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>single</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <appendAssemblyId>false</appendAssemblyId>
-                    </configuration>
-                </plugin>
-            </plugins>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
 
-        </pluginManagement>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <type>test-jar</type>
+        </dependency>
 
-        <plugins>
-
-            <!-- display active profile in compile phase -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-help-plugin</artifactId>
-            </plugin>
-
-        </plugins>
-    </build>
+    </dependencies>
 
 </project>
